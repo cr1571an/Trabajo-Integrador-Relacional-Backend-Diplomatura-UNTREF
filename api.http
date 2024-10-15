@@ -1,0 +1,4 @@
+###
+
+# Obtener todos los productos
+GET http://localhost:3000/contenido
