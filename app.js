@@ -1,24 +1,25 @@
-const express = require("express");
-const contenidoRoutes = require("./routes/contenidoRoutes");
-const { sequelize } = require('./conexion/database')
+import express, { json } from "express";
+import contenidoRoutes from "./routes/contenidoRoutes.js";
+import sequelize from "./conexion/database.js";
 
 const app = express();
 
 process.loadEnvFile();
 
 // Middlewares
-app.use(express.json());
-
+app.use(json());
 
 app.use(async (req, res, next) => {
   try {
-    await sequelize.authenticate()
-    console.log('Conexión establecida con exito ! =)')
-    next()
+    await sequelize.authenticate();
+    console.log("Conexión establecida con exito ! =)");
+    next();
   } catch (error) {
-    res.status(500).json({ error: `Error en el servidor: `, description: error.message })
+    res
+      .status(500)
+      .json({ error: `Error en el servidor: `, description: error.message });
   }
-})
+});
 
 // Routes
 app.use("/contenido", contenidoRoutes);
