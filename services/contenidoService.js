@@ -74,8 +74,17 @@ const createContenido = async (
   }
 };
 
+const deleteContenido = async (id) => {
+  return await Contenido.destroy({
+    where: {
+      id,
+    },
+  });
+};
+
 export default {
   getAllContenido,
   getContenidoById,
   createContenido,
+  deleteContenido,
 };

@@ -13,8 +13,6 @@ router.put("/:id", (req, res) => {
   // Update content by ID
 });
 
-router.delete("/:id", (req, res) => {
-  // Delete content by ID
-});
+router.delete("/:id", contenidoController.deleteContenido);
 
 export default router;

@@ -25,3 +25,9 @@ Content-Type: application/json
       "duracion": 97,
       "reparto": [60,61,62,63,64,65]
 }
+
+###
+
+# Eliminar Contenido
+DELETE http://localhost:3000/contenido/82
+

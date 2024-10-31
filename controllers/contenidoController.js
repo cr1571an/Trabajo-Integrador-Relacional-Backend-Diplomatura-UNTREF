@@ -5,7 +5,8 @@ const getAllContenidos = async (req, res) => {
     const contenido = await contenidoService.getAllContenido();
     res.status(200).json(contenido);
   } catch (error) {
-    res.status(503).json(error);
+    console.log(error);
+    res.status(503).json({ error: "No se pudieron obtener los contenidos" });
   }
 };
 
@@ -19,7 +20,8 @@ const getContenidoById = async (req, res) => {
     }
     res.status(200).json(contenido);
   } catch (error) {
-    res.status(503).json(error);
+    console.log(error);
+    res.status(503).send({ error: "No se pudo obtener el contenido" });
   }
 };
 
@@ -69,7 +71,23 @@ const createContenido = async (req, res) => {
       contenido: nuevoContenido,
     });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.log(error);
+    res.status(400).send({ error: "No se pudo agregar el contenido" });
+  }
+};
+
+const deleteContenido = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deleted = await contenidoService.deleteContenido(id);
+    if (!deleted) {
+      res.status(404).json({ message: "Contenido no encontrado" });
+      return;
+    }
+    res.status(200).json({ message: "Contenido eliminado exitosamente" });
+  } catch (error) {
+    console.log(error);
+    res.status(503).send({ error: "No se pudo eliminar el contenido" });
   }
 };
 
@@ -77,4 +95,5 @@ export default {
   getAllContenidos,
   getContenidoById,
   createContenido,
+  deleteContenido,
 };
