@@ -1,17 +1,13 @@
-const express = require("express");
-const router = express.Router();
-const { getAllContenidos } = require("../controllers/contenidoController");
+import { Router } from "express";
+const router = Router();
+import contenidoController from "../controllers/contenidoController.js";
 
 // Routes for CRUD
-router.get("/", getAllContenidos);
+router.get("/", contenidoController.getAllContenidos);
 
-router.get("/:id", (req, res) => {
-  // Get content by ID
-});
+router.get("/:id", contenidoController.getContenidoById);
 
-router.post("/", (req, res) => {
-  // Add new content
-});
+router.post("/", contenidoController.createContenido);
 
 router.put("/:id", (req, res) => {
   // Update content by ID
@@ -21,4 +17,4 @@ router.delete("/:id", (req, res) => {
   // Delete content by ID
 });
 
-module.exports = router;
+export default router;
