@@ -6,7 +6,6 @@ import Categoria from "./categoriaModelo.js";
 
 const models = { Actor, Contenido, Genero, Categoria };
 
-// Define las asociaciones después de importar todos los modelos
 Actor.belongsToMany(Contenido, {
   through: "Actores_Contenidos",
   foreignKey: "fk_actor",
@@ -21,6 +20,7 @@ Contenido.belongsToMany(Actor, {
   otherKey: "fk_actor",
   as: "actores",
   timestamps: false,
+  onDelete: "CASCADE",
 });
 
 Contenido.belongsTo(models.Categoria, {
@@ -33,6 +33,15 @@ Contenido.belongsToMany(models.Genero, {
   foreignKey: "fk_contenido",
   otherKey: "fk_genero",
   as: "generos",
+  timestamps: false,
+  onDelete: "CASCADE",
+});
+
+Genero.belongsToMany(Contenido, {
+  through: "Generos_Contenidos",
+  foreignKey: "fk_genero",
+  otherKey: "fk_contenido",
+  as: "contenidos",
   timestamps: false,
 });
 
