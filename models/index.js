@@ -45,5 +45,14 @@ Genero.belongsToMany(Contenido, {
   timestamps: false,
 });
 
+Categoria.hasMany(Contenido, {
+  foreignKey: "fk_categoria",
+  as: "contenidos",
+});
+
+Contenido.belongsTo(Categoria, {
+  foreignKey: "fk_categoria",
+});
+
 export { sequelize };
 export default models;
