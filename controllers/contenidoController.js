@@ -25,6 +25,44 @@ const getContenidoById = async (req, res) => {
   }
 };
 
+const filtrarContenidos = async (req, res) => {
+  try {
+    const { titulo, genero, categoria } = req.query;
+
+    // Validar que solo un parámetro esté presente
+    const filtros = [titulo, genero, categoria].filter(Boolean);
+    if (filtros.length !== 1) {
+      return res.status(400).send({
+        error:
+          "Solo se puede filtrar por un parámetro a la vez: título, género o categoría.",
+      });
+    }
+
+    const filtro = {};
+    if (titulo) filtro.titulo = titulo;
+    if (genero) filtro.genero = genero;
+    if (categoria) filtro.categoria = categoria;
+
+    const contenidos = await contenidoService.filtrarContenidos(filtro);
+
+    // Controlar si no se encuentran coincidencias
+    if (contenidos.length === 0) {
+      return res.status(404).send({
+        error:
+          "No se encontraron contenidos que coincidan con el filtro proporcionado.",
+      });
+    }
+
+    res.status(200).json(contenidos);
+  } catch (error) {
+    console.error(error);
+    res.status(503).send({
+      error: "Ocurrió un problema al intentar obtener los contenidos",
+      details: error.message,
+    });
+  }
+};
+
 const createContenido = async (req, res) => {
   const {
     titulo,
@@ -87,7 +125,10 @@ const updateContenido = async (req, res) => {
     res.status(200).json({ message: "Contenido actualizado exitosamente" });
   } catch (error) {
     console.log(error);
-    res.status(503).send({ error: "No se pudo actualizar el contenido", details: error.message });
+    res.status(503).send({
+      error: "No se pudo actualizar el contenido",
+      details: error.message,
+    });
   }
 };
 
@@ -109,6 +150,7 @@ const deleteContenido = async (req, res) => {
 export default {
   getAllContenidos,
   getContenidoById,
+  filtrarContenidos,
   createContenido,
   updateContenido,
   deleteContenido,

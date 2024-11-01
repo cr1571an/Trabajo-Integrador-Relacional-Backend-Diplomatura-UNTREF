@@ -5,6 +5,8 @@ import contenidoController from "../controllers/contenidoController.js";
 // Routes for CRUD
 router.get("/", contenidoController.getAllContenidos);
 
+router.get("/filtrar", contenidoController.filtrarContenidos);
+
 router.get("/:id", contenidoController.getContenidoById);
 
 router.post("/", contenidoController.createContenido);

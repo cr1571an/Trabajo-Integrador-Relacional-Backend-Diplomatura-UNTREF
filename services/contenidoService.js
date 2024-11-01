@@ -1,6 +1,7 @@
 import models from "../models/index.js";
+import { Op } from "sequelize";
 
-const { Contenido, Actor, Genero } = models;
+const { Contenido, Actor, Genero, Categoria } = models;
 
 const getAllContenido = async () => {
   return await Contenido.findAll();
@@ -8,6 +9,61 @@ const getAllContenido = async () => {
 
 const getContenidoById = async (id) => {
   return await Contenido.findByPk(id);
+};
+
+const filtrarContenidos = async (filtro) => {
+  try {
+    const query = {
+      include: [],
+    };
+    let contenidos = [];
+
+    if (filtro.titulo) {
+      query.where = {
+        titulo: { [Op.like]: `%${filtro.titulo}%` },
+      };
+      contenidos = await Contenido.findAll(query);
+    }
+
+    if (filtro.genero) {
+      const genero = await Genero.findOne({
+        where: {
+          nombre: {
+            [Op.like]: `%${filtro.genero}%`,
+          },
+        },
+      });
+
+      if (genero) {
+        contenidos = await genero.getContenidos();
+        return contenidos;
+      }
+
+      throw new Error("Genero no encontrado");
+    }
+
+    if (filtro.categoria) {
+      const categoria = await Categoria.findOne({
+        where: {
+          nombre: {
+            [Op.like]: `%${filtro.categoria}%`,
+          },
+        },
+      });
+
+      if (categoria) {
+        contenidos = await categoria.getContenidos();
+        return contenidos;
+      }
+
+      throw new Error("Categoria no encontrada");
+    }
+
+    return contenidos;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Ocurrió un problema al filtrar los contenidos");
+  }
 };
 
 const createContenido = async (
@@ -172,6 +228,7 @@ const deleteContenido = async (id) => {
 export default {
   getAllContenido,
   getContenidoById,
+  filtrarContenidos,
   createContenido,
   updateContenido,
   deleteContenido,
