@@ -10,6 +10,14 @@ GET http://localhost:3000/contenido/86
 
 ###
 
+# Filtrar contenido por titulo, genero o categoria.
+
+GET http://localhost:3000/contenido/filtrar?categoria=Ser
+# GET http://localhost:3000/contenido/filtrar?genero=Misterio
+# GET http://localhost:3000/contenido/filtrar?titulo=30&genero=accion
+
+###
+
 # Crear un contenido nuevo
 POST http://localhost:3000/contenido
 Content-Type: application/json
@@ -46,5 +54,5 @@ Content-Type: application/json
 ###
 
 # Eliminar un Contenido
-DELETE http://localhost:3000/contenido/87
+DELETE http://localhost:3000/contenido/875
 
