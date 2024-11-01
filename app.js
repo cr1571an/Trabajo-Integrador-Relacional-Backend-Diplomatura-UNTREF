@@ -24,6 +24,10 @@ app.use(async (req, res, next) => {
 // Routes
 app.use("/contenido", contenidoRoutes);
 
+app.use((req, res) => {
+  res.status(404).json({ message: "Ruta no encontrada" });
+});
+
 // Server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

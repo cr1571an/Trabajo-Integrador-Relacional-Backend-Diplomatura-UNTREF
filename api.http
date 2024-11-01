@@ -56,3 +56,7 @@ Content-Type: application/json
 # Eliminar un Contenido
 DELETE http://localhost:3000/contenido/875
 
+###
+
+# Manejo de error con rutas inexistentes
+GET  http://localhost:3000/rutainexistente
