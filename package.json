@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node --watch app.js",
-    "start:debug": "node --inspect --watch app.js",
+    "start:debug": "node --inspect=9229 --watch app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
