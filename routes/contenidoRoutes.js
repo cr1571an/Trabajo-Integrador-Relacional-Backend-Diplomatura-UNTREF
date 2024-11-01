@@ -9,9 +9,7 @@ router.get("/:id", contenidoController.getContenidoById);
 
 router.post("/", contenidoController.createContenido);
 
-router.put("/:id", (req, res) => {
-  // Update content by ID
-});
+router.put("/:id", contenidoController.updateContenido);
 
 router.delete("/:id", contenidoController.deleteContenido);
 

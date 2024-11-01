@@ -76,6 +76,21 @@ const createContenido = async (req, res) => {
   }
 };
 
+const updateContenido = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updated = await contenidoService.updateContenido(id, req.body);
+    if (!updated) {
+      res.status(404).json({ message: "Contenido no encontrado" });
+      return;
+    }
+    res.status(200).json({ message: "Contenido actualizado exitosamente" });
+  } catch (error) {
+    console.log(error);
+    res.status(503).send({ error: "No se pudo actualizar el contenido", details: error.message });
+  }
+};
+
 const deleteContenido = async (req, res) => {
   const { id } = req.params;
   try {
@@ -95,5 +110,6 @@ export default {
   getAllContenidos,
   getContenidoById,
   createContenido,
+  updateContenido,
   deleteContenido,
 };

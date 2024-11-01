@@ -6,7 +6,7 @@ GET http://localhost:3000/contenido
 ###
 
 # Obtener un contenido por id
-GET http://localhost:3000/contenido/31
+GET http://localhost:3000/contenido/86
 
 ###
 
@@ -28,6 +28,23 @@ Content-Type: application/json
 
 ###
 
-# Eliminar Contenido
-DELETE http://localhost:3000/contenido/82
+# Actualizar un Contenido
+PUT http://localhost:3000/contenido/86
+Content-Type: application/json
+
+{
+      "poster": "./posters/22.jpg",
+      "titulo": "3022",
+      "fk_categoria": 2,
+      "resumen": "Carlitos",
+      "temporadas": "N/A",
+      "trailer": "https://www.youtube.com/embed/AGQ7OkmIx4Q",
+      "duracion": 97,
+}
+
+
+###
+
+# Eliminar un Contenido
+DELETE http://localhost:3000/contenido/87
 
